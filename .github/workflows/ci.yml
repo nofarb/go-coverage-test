@@ -65,25 +65,3 @@ jobs:
           coverage.html
         retention-days: 30
         
-  build:
-    runs-on: ubuntu-latest
-    needs: test
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.22.x'
-        
-    - name: Build application
-      run: make build
-      
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-artifacts
-        path: bin/
-        retention-days: 7
