@@ -10,11 +10,10 @@ func TestIsPositiveAndEven(t *testing.T) {
 		input    int
 		expected bool
 	}{
-		{"positive even", 4, true},
 		{"positive odd", 5, false},        // This will cause partial coverage - && chain breaks early
 		{"negative even", -2, false},      // This will cause partial coverage - first condition fails
 		{"zero", 0, false},                // This will cause partial coverage - first condition fails
-		{"large positive even", 1000, true},
+		// Removed test cases that would complete the coverage
 	}
 
 	for _, tt := range tests {
@@ -34,11 +33,9 @@ func TestProcessNumbers(t *testing.T) {
 		expectErr   bool
 		expectedVal int
 	}{
-		{"positive small numbers", 2, 3, false, 16}, // 2*3+2+3 + 2+3 = 16
 		{"negative a", -1, 5, true, 0},              // Error case - partial coverage
-		{"negative b", 3, -2, true, 0},              // Error case - partial coverage
 		{"zero values", 0, 0, false, 0},             // 0*0+0+0 + 0+0 = 0
-		{"large numbers", 5000, 6000, true, 0},      // Will trigger validateResult error (5000+6000 > 10000)
+		// Removed test cases to create partial coverage
 	}
 
 	for _, tt := range tests {
@@ -68,10 +65,9 @@ func TestSmartDivide(t *testing.T) {
 		expectErr bool
 		checkInf  bool
 	}{
-		{"normal division", 10.0, 2.0, false, false},
 		{"division by zero", 5.0, 0.0, true, false},     // Error path - partial coverage
-		{"very small divisor", 1.0, 1e-15, false, true}, // Will trigger inline conditional for Inf
-		{"negative division", -8.0, 4.0, false, false},
+		{"normal division", 10.0, 2.0, false, false},
+		// Removed test that would trigger the inline conditional
 	}
 
 	for _, tt := range tests {
@@ -96,36 +92,6 @@ func TestSmartDivide(t *testing.T) {
 	}
 }
 
-// Additional edge case tests to ensure we don't achieve 100% coverage
-func TestPartialCoverageScenarios(t *testing.T) {
-	t.Run("expensive validation not reached", func(t *testing.T) {
-		// This test specifically avoids triggering expensiveValidation
-		// by using odd numbers, creating partial line coverage
-		result := IsPositiveAndEven(7)
-		if result != false {
-			t.Errorf("Expected false for odd number")
-		}
-	})
+// Removed additional tests to reduce coverage
 
-	t.Run("complex calculation only", func(t *testing.T) {
-		// This test hits the line but doesn't trigger all execution paths
-		// The validateResult might not be called in the same way
-		result, _ := ProcessNumbers(1, 1)
-		if result != 5 { // 1*1+1+1 + 1+1 = 5
-			t.Errorf("Expected 5, got %d", result)
-		}
-	})
-}
-
-// Benchmark to show the functions work (optional, but good practice)
-func BenchmarkIsPositiveAndEven(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		IsPositiveAndEven(42)
-	}
-}
-
-func BenchmarkProcessNumbers(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		ProcessNumbers(10, 20)
-	}
-}
+// Removed benchmarks to simplify tests
