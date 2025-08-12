@@ -57,3 +57,15 @@ func validateResult(a, b int) error {
 	}
 	return nil
 }
+
+// MaxOfThree demonstrates partial coverage with multiple comparisons on one line
+func MaxOfThree(a, b, c int) int {
+	// Partial coverage target: complex conditional logic on single line
+	if a >= b && a >= c { return a } else if b >= c { return b } else { return c }
+}
+
+// CheckRange shows partial coverage with boundary checks
+func CheckRange(n int) string {
+	// Partial coverage target: multiple conditions that won't all be tested
+	if n < 0 { return "negative" } else if n == 0 { return "zero" } else if n <= 10 { return "small" } else if n <= 100 { return "medium" } else { return "large" }
+}

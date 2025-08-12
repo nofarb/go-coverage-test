@@ -92,6 +92,29 @@ func TestSmartDivide(t *testing.T) {
 	}
 }
 
-// Removed additional tests to reduce coverage
+// Test new functions with minimal coverage
+func TestMaxOfThree(t *testing.T) {
+	// Only test one path, leaving others uncovered
+	result := MaxOfThree(5, 3, 1)
+	if result != 5 {
+		t.Errorf("MaxOfThree(5, 3, 1) = %d, want 5", result)
+	}
+}
 
-// Removed benchmarks to simplify tests
+func TestCheckRange(t *testing.T) {
+	// Only test two cases, leaving most branches uncovered
+	tests := []struct {
+		input    int
+		expected string
+	}{
+		{-5, "negative"},
+		{50, "medium"},
+	}
+	
+	for _, tt := range tests {
+		result := CheckRange(tt.input)
+		if result != tt.expected {
+			t.Errorf("CheckRange(%d) = %s, want %s", tt.input, result, tt.expected)
+		}
+	}
+}
